@@ -1,0 +1,43 @@
+#!/bin/bash
+
+LOG_DIR="/home/bsaiv"
+APP_LFILE="application.log"
+SYS_LFILE="system.log"
+ERROR_PATTERN=("ERROR" "INFO" "WARN")
+
+echo "Analyzing logs in $LOG_DIR..."
+echo -e "\n**********START*********"
+echo -e "\nList of log files updated in last 24 hours:"
+
+LOG_FILES=$(find $LOG_DIR -type f -name "*.log" -mtime -1)
+echo "$LOG_FILES"
+
+for LOG_FILE in $LOG_FILES; do
+    echo -e "\n--- Analyzing: $LOG_FILE ---"
+
+#counting the number of ERROR logs
+    echo -e "\nSearching ERROR logs in: $LOG_FILE"
+    grep -c "${ERROR_PATTERN[0]}" "$LOG_FILE"
+
+#printing the ERROR logs
+    echo -e "\nSearching ERROR logs in: $LOG_FILE"
+    grep "${ERROR_PATTERN[0]}" "$LOG_FILE"
+
+#counting the number of INFO logs
+    echo -e "\nSearching INFO logs in: $LOG_FILE"
+    grep -c "${ERROR_PATTERN[1]}" "$LOG_FILE"
+
+#printing the INFO logs
+    echo -e "\nSearching INFO logs in: $LOG_FILE"
+    grep "${ERROR_PATTERN[1]}" "$LOG_FILE"
+
+#counting the number of WARN logs
+    echo -e "\nSearching WARN logs in: $LOG_FILE"
+    grep -c "${ERROR_PATTERN[2]}" "$LOG_FILE"
+
+#printing the WARN logs
+    echo -e "\nSearching WARN logs in: $LOG_FILE"
+    grep "${ERROR_PATTERN[2]}" "$LOG_FILE"
+done
+
+echo -e "\n**********END*********"
